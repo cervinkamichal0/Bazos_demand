@@ -11,8 +11,7 @@ import static java.lang.Integer.valueOf;
 
 public class Main {
     public static void main(String[] args) {
-        String url = DiscordBot.sendImage("test");
-        System.out.println(url);
+        DiscordBot.sendImage("test");
         /*try {
             URL url = Main.class.getResource("config.txt");
             File config = new File(url.getPath());

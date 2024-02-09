@@ -19,10 +19,10 @@ import static java.lang.Thread.sleep;
 
 public class DiscordBot {
     private static JDA getBot() {
-        final JDA bot = JDABuilder.createDefault("MTIwNTUwMjgyMTYzODg3MzE0OA.Gp6oUs.UelgnS7klD31eaQNSz086ZcbK166ojgt23Y0hc").setActivity(Activity.watching("Bazos")).build();
+        final JDA bot = JDABuilder.createDefault("MTIwNTUwMjgyMTYzODg3MzE0OA.Gp6oUs.UelgnS7klD31eaQNSz086ZcbK166ojgt23Y0hc").setActivity(Activity.customStatus("Scraping Bazos 😎")).build();
         return bot;
     }
-    public static String sendImage(String message) {
+    public static void sendImage(String message) {
         JDA bot = getBot();
         try {
             bot.awaitReady();
@@ -32,11 +32,10 @@ public class DiscordBot {
             FileUpload img = FileUpload.fromData(new File("D:\\java\\scraper_2.0\\src\\main\\resources\\test.jpg"), "image.png");
             TextChannel textChannel = bot.getTextChannelById("1063949035054051409");
             textChannel.sendFiles(img).queue();
+            getImageURL();
 
-            String imgURL=getImageURL();
-            return imgURL;
     }
-    private static String getImageURL() {
+    private static void getImageURL() {
         JDA bot = getBot();
 
         try {
@@ -47,17 +46,14 @@ public class DiscordBot {
         TextChannel textChannel = bot.getTextChannelById("1063949035054051409");
         String latestID = textChannel.getLatestMessageId();
         textChannel.retrieveMessageById(latestID).queue((message) -> {
-            message.addReaction(Emoji.fromUnicode("U+2714")).queue();
             String imgURL = message.getAttachments().get(0).getUrl();
             System.out.println(imgURL);
-
+            message.addReaction(Emoji.fromUnicode("U+2705")).queue();
 
         }, new ErrorHandler().handle(ErrorResponse.UNKNOWN_MESSAGE, (e) -> {
             throw new RuntimeException(e);
         }));
-        return null;
+
 
     }
-    //JDA bot = JDABuilder.createDefault("MTIwNTUwMjgyMTYzODg3MzE0OA.GLh6Rm.ClrxTruBsQMEvvM59nnOOfzn-UkG21zwNZsvYQ").setActivity(Activity.watching("Bazos")).build();
-
 }
