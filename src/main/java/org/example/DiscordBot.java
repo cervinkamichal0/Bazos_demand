@@ -19,7 +19,7 @@ import static java.lang.Thread.sleep;
 
 public class DiscordBot {
     private static JDA getBot() {
-        final JDA bot = JDABuilder.createDefault("MTIwNTUwMjgyMTYzODg3MzE0OA.GLh6Rm.ClrxTruBsQMEvvM59nnOOfzn-UkG21zwNZsvYQ").setActivity(Activity.watching("Bazos")).build();
+        final JDA bot = JDABuilder.createDefault("MTIwNTUwMjgyMTYzODg3MzE0OA.Gp6oUs.UelgnS7klD31eaQNSz086ZcbK166ojgt23Y0hc").setActivity(Activity.watching("Bazos")).build();
         return bot;
     }
     public static String sendImage(String message) {
