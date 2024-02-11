@@ -26,6 +26,7 @@ public class Main {
                 String[] rozdelenyData = data.split(";");
                 List<Inzerat> stareInzeraty = FileManager.loadScrape(rozdelenyData[0], Integer.parseInt(rozdelenyData[1]), Integer.parseInt(rozdelenyData[2]));
                 List<Inzerat> noveInzeraty = Scraper.scrapeBazos(rozdelenyData[0], Integer.parseInt(rozdelenyData[1]), Integer.parseInt(rozdelenyData[2]));
+
                 List<Inzerat> prodaneInzeraty = new ArrayList<>();
                 if (stareInzeraty != null) {
                     for (Inzerat inzerat : stareInzeraty) {
@@ -35,7 +36,7 @@ public class Main {
                     }
                 }
                 FileManager.saveScrape(noveInzeraty, rozdelenyData[0], Integer.parseInt(rozdelenyData[1]), Integer.parseInt(rozdelenyData[2]));
-                FileManager.saveScrape(prodaneInzeraty,"_PRODEJE_ "+ rozdelenyData[0] , Integer.parseInt(rozdelenyData[1]), Integer.parseInt(rozdelenyData[2]));
+                FileManager.saveSells(prodaneInzeraty, rozdelenyData[0] , Integer.parseInt(rozdelenyData[1]), Integer.parseInt(rozdelenyData[2]));
                 System.out.println(rozdelenyData[0] + ": " + noveInzeraty.size());
             }
             myReader.close();

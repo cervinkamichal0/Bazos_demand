@@ -31,8 +31,8 @@ public class Scraper {
             if (matcher.find()) {
                 pocetInzeratuText = matcher.group(1);
                 pocetStranek = valueOf(pocetInzeratuText)/20;
-                if (pocetStranek >= 20)
-                    pocetStranek = 20;
+                if (pocetStranek >= 40)
+                    pocetStranek = 40;
             }
             else {
                 throw new RuntimeException("Nepodarilo se ziskat pocet inzeratu");
