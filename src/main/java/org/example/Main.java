@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import static java.lang.Integer.valueOf;
+import static java.lang.System.exit;
 
 
 public class Main {
@@ -26,6 +27,18 @@ public class Main {
                 String[] rozdelenyData = data.split(";");
                 List<Inzerat> stareInzeraty = FileManager.loadScrape(rozdelenyData[0], Integer.parseInt(rozdelenyData[1]), Integer.parseInt(rozdelenyData[2]));
                 List<Inzerat> noveInzeraty = Scraper.scrapeBazos(rozdelenyData[0], Integer.parseInt(rozdelenyData[1]), Integer.parseInt(rozdelenyData[2]));
+                if (stareInzeraty == null) {
+                    for (Inzerat inzerat : noveInzeraty) {
+                        DiscordBot.storeImage(inzerat);
+                    }
+                }
+                else {
+                    for (Inzerat inzerat : noveInzeraty) {
+                        if (!stareInzeraty.contains(inzerat)) {
+                            DiscordBot.storeImage(inzerat);
+                        }
+                    }
+                }
 
                 List<Inzerat> prodaneInzeraty = new ArrayList<>();
                 if (stareInzeraty != null) {
@@ -44,6 +57,6 @@ public class Main {
             System.out.println("Nebyl nalezen soubour config.txt");
             e.printStackTrace();
         }
-
+        exit(0);
     }
 }

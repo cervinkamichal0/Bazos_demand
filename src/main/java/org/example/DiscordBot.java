@@ -14,6 +14,10 @@ import net.dv8tion.jda.api.utils.FileUpload;
 
 import java.awt.image.DataBufferByte;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
 
 import static java.lang.Thread.sleep;
 
@@ -22,20 +26,20 @@ public class DiscordBot {
         final JDA bot = JDABuilder.createDefault("MTIwNTUwMjgyMTYzODg3MzE0OA.Gp6oUs.UelgnS7klD31eaQNSz086ZcbK166ojgt23Y0hc").setActivity(Activity.customStatus("Scraping Bazos 😎")).build();
         return bot;
     }
-    public static void sendImage(String message) {
+    private static void sendImage(FileUpload img) {
         JDA bot = getBot();
         try {
             bot.awaitReady();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-            FileUpload img = FileUpload.fromData(new File("D:\\java\\scraper_2.0\\src\\main\\resources\\test.jpg"), "image.png");
+            img.setName(img.getName() + ".jpg");
             TextChannel textChannel = bot.getTextChannelById("1063949035054051409");
             textChannel.sendFiles(img).queue();
-            getImageURL();
+
 
     }
-    private static void getImageURL() {
+    private static void getImageURL(ImageUrlCallback callback) {
         JDA bot = getBot();
 
         try {
@@ -49,11 +53,30 @@ public class DiscordBot {
             String imgURL = message.getAttachments().get(0).getUrl();
             System.out.println(imgURL);
             message.addReaction(Emoji.fromUnicode("U+2705")).queue();
+            callback.onImageUrlReceived(imgURL);
 
         }, new ErrorHandler().handle(ErrorResponse.UNKNOWN_MESSAGE, (e) -> {
             throw new RuntimeException(e);
         }));
 
+
+    }
+    public static void storeImage(Inzerat inzerat) {
+
+        InputStream input = null;
+        try {
+            input = new java.net.URL(inzerat.img).openStream();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        FileUpload inputUpload = FileUpload.fromData(input,  inzerat.nadpis);
+            sendImage(inputUpload);
+            getImageURL(new ImageUrlCallback() {
+                @Override
+                public void onImageUrlReceived(String imageUrl) {
+                    inzerat.img = imageUrl;
+                }
+            });
 
     }
 }

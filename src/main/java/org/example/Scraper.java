@@ -6,6 +6,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -49,6 +50,7 @@ public class Scraper {
                 lokace = inzerat.select(".inzeratylok").text();
                 datumVlozeni = inzerat.select(".velikost10").text();
                 img = inzerat.select(".obrazek").attr("src");
+                InputStream input = new java.net.URL(img).openStream();
                 url = inzerat.select("a").attr("href");
                 bazosInzerat = new Inzerat(nadpis, popis, cena, lokace, datumVlozeni, img, url);
                 inzeratyList.add(bazosInzerat);
