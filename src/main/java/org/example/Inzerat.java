@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.Objects;
+
 public class Inzerat {
 
     public String nadpis;
@@ -18,5 +20,17 @@ public class Inzerat {
         this.datumVlozeni = datumVlozeni;
         this.img = img;
         this.url = url;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Inzerat inzerat = (Inzerat) o;
+        return Objects.equals(url, inzerat.url);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nadpis, popis, cena, lokace, datumVlozeni, img, url);
     }
 }
