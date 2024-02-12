@@ -22,12 +22,9 @@ import java.util.List;
 import static java.lang.Thread.sleep;
 
 public class DiscordBot {
-    private static JDA getBot() {
-        final JDA bot = JDABuilder.createDefault("MTIwNTUwMjgyMTYzODg3MzE0OA.Gp6oUs.UelgnS7klD31eaQNSz086ZcbK166ojgt23Y0hc").setActivity(Activity.customStatus("Scraping Bazos 😎")).build();
-        return bot;
-    }
+    private  static final JDA bot = JDABuilder.createDefault("MTIwNTUwMjgyMTYzODg3MzE0OA.Gp6oUs.UelgnS7klD31eaQNSz086ZcbK166ojgt23Y0hc").setActivity(Activity.customStatus("Scraping Bazos 😎")).build();
+
     private static void sendImage(FileUpload img) {
-        JDA bot = getBot();
         try {
             bot.awaitReady();
         } catch (InterruptedException e) {
@@ -40,8 +37,6 @@ public class DiscordBot {
 
     }
     private static void getImageURL(ImageUrlCallback callback) {
-        JDA bot = getBot();
-
         try {
             bot.awaitReady();
         } catch (InterruptedException e) {

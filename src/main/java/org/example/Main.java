@@ -14,8 +14,7 @@ import static java.lang.System.exit;
 
 public class Main {
     public static void main(String[] args) {
-
-        //DiscordBot.sendImage("test");
+        int pocetProdeju = 0;
         try {
             URL url = Main.class.getResource("config.txt");
             File config = new File(url.getPath());
@@ -41,9 +40,11 @@ public class Main {
                 }
 
                 List<Inzerat> prodaneInzeraty = new ArrayList<>();
+
                 if (stareInzeraty != null) {
                     for (Inzerat inzerat : stareInzeraty) {
                         if (!noveInzeraty.contains(inzerat)) {
+                            pocetProdeju++;
                             prodaneInzeraty.add(inzerat);
                         }
                     }
@@ -51,12 +52,14 @@ public class Main {
                 FileManager.saveScrape(noveInzeraty, rozdelenyData[0], Integer.parseInt(rozdelenyData[1]), Integer.parseInt(rozdelenyData[2]));
                 FileManager.saveSells(prodaneInzeraty, rozdelenyData[0] , Integer.parseInt(rozdelenyData[1]), Integer.parseInt(rozdelenyData[2]));
                 System.out.println(rozdelenyData[0] + ": " + noveInzeraty.size());
+
             }
             myReader.close();
         } catch (FileNotFoundException e) {
             System.out.println("Nebyl nalezen soubour config.txt");
             e.printStackTrace();
         }
+        System.out.println("Pocet prodeju: " + pocetProdeju);
         exit(0);
     }
 }
