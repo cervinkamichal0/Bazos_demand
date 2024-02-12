@@ -57,7 +57,7 @@ public class DiscordBot {
 
 
     }
-    public static void storeImage(Inzerat inzerat) {
+    public static void storeImage(Inzerat inzerat, ImageSentCallback callback) {
 
         InputStream input = null;
         try {
@@ -71,6 +71,7 @@ public class DiscordBot {
                     @Override
                     public void onImageUrlReceived(String imageUrl) {
                         inzerat.img = imageUrl;
+                        callback.onImageSent();
                     }
                 });
             }));
@@ -80,5 +81,8 @@ public class DiscordBot {
 }
 interface ImageCallback {
     void onImageSent(Message message);
+}
+interface ImageSentCallback {
+    void onImageSent();
 }
 
