@@ -74,7 +74,6 @@ public class DiscordBot {
                     }
                 });
             }));
-
     }
 }
 interface ImageCallback {

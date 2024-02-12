@@ -60,6 +60,5 @@ public class Main {
             e.printStackTrace();
         }
         System.out.println("Pocet prodeju: " + pocetProdeju);
-        exit(0);
     }
 }
