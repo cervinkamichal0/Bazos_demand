@@ -59,6 +59,14 @@ public class Main {
             System.out.println("Nebyl nalezen soubour config.txt");
             e.printStackTrace();
         }
+
         System.out.println("Pocet prodeju: " + pocetProdeju);
+        System.out.println("Aplikaci nezavírejte. Počkejte až Discord bot přestane odesílat obrázky.");
+        try {
+            Thread.sleep(300000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        exit(0);
     }
 }
