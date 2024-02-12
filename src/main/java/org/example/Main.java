@@ -16,16 +16,13 @@ public class Main {
     public static void main(String[] args) {
         int pocetProdeju = 0;
         int timeOut = 300000;
+        if (args.length == 1) {
+            timeOut = Integer.parseInt(args[0]);
+        }
         try {
             URL configURL = Main.class.getResource("config.txt");
             File config = new File(configURL.getPath());
             Scanner myReader = new Scanner(config);
-            try {
-                timeOut = Integer.parseInt(myReader.nextLine());
-            }catch (Exception e){
-                System.out.println("Zadejte do prvního řádku configu timeOut programu v milisekundách");
-                e.printStackTrace();
-            }
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
                 System.out.println(data);
