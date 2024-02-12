@@ -15,10 +15,17 @@ import static java.lang.System.exit;
 public class Main {
     public static void main(String[] args) {
         int pocetProdeju = 0;
+        int timeOut = 300000;
         try {
-            URL url = Main.class.getResource("config.txt");
-            File config = new File(url.getPath());
+            URL configURL = Main.class.getResource("config.txt");
+            File config = new File(configURL.getPath());
             Scanner myReader = new Scanner(config);
+            try {
+                timeOut = Integer.parseInt(myReader.nextLine());
+            }catch (Exception e){
+                System.out.println("Zadejte do prvního řádku configu timeOut programu v milisekundách");
+                e.printStackTrace();
+            }
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
                 System.out.println(data);
@@ -63,7 +70,7 @@ public class Main {
         System.out.println("Pocet prodeju: " + pocetProdeju);
         System.out.println("Aplikaci nezavírejte. Počkejte až Discord bot přestane odesílat obrázky.");
         try {
-            Thread.sleep(300000);
+            Thread.sleep(timeOut);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
