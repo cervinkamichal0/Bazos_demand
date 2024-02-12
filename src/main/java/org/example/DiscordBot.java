@@ -19,12 +19,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import static java.lang.Thread.currentThread;
 import static java.lang.Thread.sleep;
 
 public class DiscordBot {
     private  static final JDA bot = JDABuilder.createDefault("MTIwNTUwMjgyMTYzODg3MzE0OA.Gp6oUs.UelgnS7klD31eaQNSz086ZcbK166ojgt23Y0hc").setActivity(Activity.customStatus("Scraping Bazos 😎")).build();
 
-    private static void sendImage(FileUpload img) {
+    private static void sendImage(FileUpload img, ImageCallback callback) {
         try {
             bot.awaitReady();
         } catch (InterruptedException e) {
@@ -32,7 +33,7 @@ public class DiscordBot {
         }
             img.setName(img.getName() + ".jpg");
             TextChannel textChannel = bot.getTextChannelById("1063949035054051409");
-            textChannel.sendFiles(img).queue();
+            textChannel.sendFiles(img).queue(callback::onImageSent);
 
 
     }
@@ -65,13 +66,17 @@ public class DiscordBot {
             throw new RuntimeException(e);
         }
         FileUpload inputUpload = FileUpload.fromData(input,  inzerat.nadpis);
-            sendImage(inputUpload);
-            getImageURL(new ImageUrlCallback() {
-                @Override
-                public void onImageUrlReceived(String imageUrl) {
-                    inzerat.img = imageUrl;
-                }
-            });
+            sendImage(inputUpload, (message -> {
+                getImageURL(new ImageUrlCallback() {
+                    @Override
+                    public void onImageUrlReceived(String imageUrl) {
+                        inzerat.img = imageUrl;
+                    }
+                });
+            }));
 
     }
+}
+interface ImageCallback {
+    void onImageSent(Message message);
 }
