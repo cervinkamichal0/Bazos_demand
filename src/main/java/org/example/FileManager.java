@@ -74,12 +74,12 @@ public class FileManager {
 
                 row.createCell(0).setCellValue(hledanyVyraz + " - od:" + cenaOd + ", do:" + cenaDo);
                 row.createCell(1).setCellValue(inzerat.nadpis);
-                row.createCell(2).setCellValue(inzerat.popis);
-                row.createCell(3).setCellValue(inzerat.cena);
-                row.createCell(4).setCellValue(inzerat.datumVlozeni);
-                row.createCell(5).setCellValue(dateTimeNow.format(dateTimeFormatter));
-                row.createCell(6).setCellValue(inzerat.img);
-                row.createCell(7).setCellValue(inzerat.lokace);
+                row.createCell(2).setCellValue(inzerat.cena);
+                row.createCell(3).setCellValue(inzerat.datumVlozeni);
+                row.createCell(4).setCellValue(dateTimeNow.format(dateTimeFormatter));
+                row.createCell(5).setCellValue(inzerat.lokace);
+                row.createCell(6).setCellValue(inzerat.popis);
+                row.createCell(7).setCellValue(inzerat.img);
                 row.createCell(8).setCellValue(inzerat.url);
 
                 zacateZapisu++;
