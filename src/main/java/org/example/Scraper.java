@@ -36,7 +36,7 @@ public class Scraper {
                     pocetStranek = 40;
             }
             else {
-                throw new RuntimeException("Nepodarilo se ziskat pocet inzeratu");
+                System.out.println("Nepodarilo se ziskat pocet inzeratu");
             }
 
             String nadpis, popis, cena, lokace, datumVlozeni, img, url;

@@ -77,6 +77,13 @@ public class DiscordBot {
             }));
 
     }
+    public static void exit() {
+        try {
+            bot.awaitShutdown();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }
 interface ImageCallback {
@@ -84,5 +91,8 @@ interface ImageCallback {
 }
 interface ImageSentCallback {
     void onImageSent();
+}
+interface ImageUrlCallback {
+    void onImageUrlReceived(String imageUrl);
 }
 
