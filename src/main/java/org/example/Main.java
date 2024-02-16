@@ -38,7 +38,7 @@ public class Main {
 
                 String[] rozdelenyData = data.split(";");
                 List<Inzerat> stareInzeraty = FileManager.loadScrape(rozdelenyData[0], Integer.parseInt(rozdelenyData[1]), Integer.parseInt(rozdelenyData[2]));
-                List<Inzerat> noveInzeraty = Scraper.scrapeBazos(rozdelenyData[0], Integer.parseInt(rozdelenyData[1]), Integer.parseInt(rozdelenyData[2]));
+                List<Inzerat> noveInzeraty = Scraper.scrapeBazos(rozdelenyData[0], Integer.parseInt(rozdelenyData[1]), Integer.parseInt(rozdelenyData[2]), rozdelenyData[3]);
                 if (stareInzeraty == null) {
                     for (Inzerat inzerat : noveInzeraty) {
                         DiscordBot.storeImage(inzerat, () -> {
@@ -82,7 +82,7 @@ public class Main {
                         }
                     }
                 }
-                //FileManager.saveScrape(noveInzeraty, rozdelenyData[0], Integer.parseInt(rozdelenyData[1]), Integer.parseInt(rozdelenyData[2]));
+                FileManager.saveScrape(noveInzeraty, rozdelenyData[0], Integer.parseInt(rozdelenyData[1]), Integer.parseInt(rozdelenyData[2]));
                 FileManager.saveSells(prodaneInzeraty, rozdelenyData[0] , Integer.parseInt(rozdelenyData[1]), Integer.parseInt(rozdelenyData[2]));
                 System.out.println(rozdelenyData[0] + ": " + noveInzeraty.size());
 
@@ -100,6 +100,6 @@ public class Main {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        DiscordBot.exit();
+        System.exit(0);
     }
 }

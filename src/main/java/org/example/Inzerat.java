@@ -1,5 +1,10 @@
 package org.example;
 
+
+
+
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 
 public class Inzerat {
@@ -8,11 +13,12 @@ public class Inzerat {
     public String popis;
     public String cena;
     public String lokace;
-    public String datumVlozeni;
+    public LocalDate datumVlozeni;
     public String img;
     public String url;
+    public String model;
 
-    public Inzerat(String nadpis, String popis, String cena, String lokace, String datumVlozeni, String img, String url) {
+    public Inzerat(String nadpis, String popis, String cena, String lokace, LocalDate datumVlozeni, String img, String url, String model) {
         this.nadpis = nadpis;
         this.popis = popis;
         this.cena = cena;
@@ -20,6 +26,7 @@ public class Inzerat {
         this.datumVlozeni = datumVlozeni;
         this.img = img;
         this.url = url;
+        this.model = model;
     }
     @Override
     public boolean equals(Object o) {

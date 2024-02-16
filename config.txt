@@ -1,0 +1,17 @@
+bmw e46 320d;40000;100000;BMW E46
+bmw e46 320i;40000;100000;BMW E46
+bmw e46 323i;40000;100000;BMW E46
+bmw e46 325i;40000;100000;BMW E46
+bmw e46 328i;40000;100000;BMW E46
+bmw e46 330i;40000;100000;BMW E46
+bmw e39 520i;30000;100000;BMW E39
+bmw e39 523i;30000;100000;BMW E39
+bmw e39 525i;30000;100000;BMW E39
+bmw e46 320d;30000;100000;BMW E46
+bmw e46 330d;30000;100000;BMW E46
+Volkswagen Passat 1.9 tdi;40000;100000;Volkswagen Passat
+Volkswagen Passat 2.0 tdi;40000;100000;Volkswagen Passat
+Škoda Octavia 2 1.6;40000;100000;Škoda Octavia
+Škoda Octavia 2 1.9 tdi;40000;100000;Škoda Octavia
+Škoda Octavia 2 2.0 tdi;40000;100000;Škoda Octavia
+skoda fabia 1.4 mpi;20000;35000;skoda fabia

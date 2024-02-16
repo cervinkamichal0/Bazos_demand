@@ -1,5 +1,8 @@
 package org.example;
 
+import org.jetbrains.annotations.Nullable;
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormatter;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -7,15 +10,18 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.io.InputStream;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 import static java.lang.Integer.valueOf;
 
 public class Scraper {
-    public static List<Inzerat> scrapeBazos(String searchTerm, int cenaOd, int cenaDo) {
+    @Nullable
+    public static List<Inzerat> scrapeBazos(String searchTerm, int cenaOd, int cenaDo, String auto) {
         String scrapeUrl = "https://www.bazos.cz/search.php?hledat=" + searchTerm + "&rubriky=www&hlokalita=&humkreis=25&cenaod="+cenaOd+"&cenado=" + cenaDo + "&Submit=Hledat&order=&kitx=ano";
         if (cenaOd>cenaDo){
             throw new IllegalArgumentException("Cena od musi byt mensi nez cena do");
@@ -23,7 +29,8 @@ public class Scraper {
         try{
             Document html = Jsoup.connect(scrapeUrl).get();
             Elements inzeraty=html.select(".inzeraty");
-
+            String regex = "\\[(\\d{1,2}\\.\\d{1,2}\\. \\d{4})\\]";
+            Pattern patternDate = Pattern.compile(regex);
             String pocetInzeratuText = html.select(".inzeratynadpis").text();
             pocetInzeratuText = pocetInzeratuText.replaceAll("\\s","");
             Pattern pattern = Pattern.compile("inzerátůz(\\d+)");
@@ -39,7 +46,10 @@ public class Scraper {
                 System.out.println("Nepodarilo se ziskat pocet inzeratu");
             }
 
-            String nadpis, popis, cena, lokace, datumVlozeni, img, url;
+            String nadpis, popis, cena, lokace, datumVlozeni, img, url, model;
+            LocalDate date;
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM yyyy");
+            formatter = formatter.withLocale( Locale.getDefault() );  // Locale specifies human language for translating, and cultural norms for lowercase/uppercase and abbreviations and such. Example: Locale.US or Locale.CANADA_FRENCH
             List<Inzerat> inzeratyList = new ArrayList<>();
             Inzerat bazosInzerat;
 
@@ -49,10 +59,12 @@ public class Scraper {
                 cena = inzerat.select(".inzeratycena").text();
                 lokace = inzerat.select(".inzeratylok").text();
                 datumVlozeni = inzerat.select(".velikost10").text();
+                Matcher matcherDate = patternDate.matcher(datumVlozeni);
+                date =   LocalDate.parse(matcherDate.group(1), formatter);
                 img = inzerat.select(".obrazek").attr("src");
-                InputStream input = new java.net.URL(img).openStream();
                 url = inzerat.select("a").attr("href");
-                bazosInzerat = new Inzerat(nadpis, popis, cena, lokace, datumVlozeni, img, url);
+                model = auto;
+                bazosInzerat = new Inzerat(nadpis, popis, cena, lokace, date, img, url, model);
                 inzeratyList.add(bazosInzerat);
             }
 
@@ -67,9 +79,12 @@ public class Scraper {
                     cena = inzerat.select(".inzeratycena").text();
                     lokace = inzerat.select(".inzeratylok").text();
                     datumVlozeni = inzerat.select(".velikost10").text();
+                    Matcher matcherDate = patternDate.matcher(datumVlozeni);
+                    date =   LocalDate.parse(matcherDate.group(1), formatter);
                     img = inzerat.select(".obrazek").attr("src");
                     url = inzerat.select("a").attr("href");
-                    bazosInzerat = new Inzerat(nadpis, popis, cena, lokace, datumVlozeni, img, url);
+                    model = auto;
+                    bazosInzerat = new Inzerat(nadpis, popis, cena, lokace, date, img, url, model);
                     inzeratyList.add(bazosInzerat);
                 }
             }

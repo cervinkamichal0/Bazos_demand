@@ -2,7 +2,7 @@ package org.example;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import jxl.write.DateTime;
+
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -10,8 +10,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.*;
 import java.lang.reflect.Type;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Scanner;
 
@@ -66,21 +67,24 @@ public class FileManager {
             Sheet sheet = workbook.getSheet("prodeje");
             int zacateZapisu = sheet.getLastRowNum()+1;
             Row row = null;
-            LocalDateTime dateTimeNow = LocalDateTime.now();
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM.dd yyyy HH:mm");
+            LocalDate dateNow = LocalDate.now();
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM yyyy");
             for (Inzerat inzerat: inzeraty) {
                 row = sheet.createRow(zacateZapisu);
 
 
-                row.createCell(0).setCellValue(hledanyVyraz + " - od:" + cenaOd + ", do:" + cenaDo);
-                row.createCell(1).setCellValue(inzerat.nadpis);
-                row.createCell(2).setCellValue(inzerat.cena);
-                row.createCell(3).setCellValue(inzerat.datumVlozeni);
-                row.createCell(4).setCellValue(dateTimeNow.format(dateTimeFormatter));
-                row.createCell(5).setCellValue(inzerat.lokace);
-                row.createCell(6).setCellValue(inzerat.popis);
-                row.createCell(7).setCellValue(inzerat.img);
-                row.createCell(8).setCellValue(inzerat.url);
+                row.createCell(0).setCellValue(hledanyVyraz);
+                row.createCell(1).setCellValue(cenaOd);
+                row.createCell(2).setCellValue(cenaDo);
+                row.createCell(3).setCellValue(inzerat.model);
+                row.createCell(4).setCellValue(inzerat.nadpis);
+                row.createCell(5).setCellValue(ChronoUnit.DAYS.between(inzerat.datumVlozeni, dateNow));
+                row.createCell(6).setCellValue(inzerat.datumVlozeni.format(dateTimeFormatter));
+                row.createCell(7).setCellValue(dateNow.format(dateTimeFormatter));
+                row.createCell(8).setCellValue(inzerat.lokace);
+                row.createCell(9).setCellValue(inzerat.popis);
+                row.createCell(10).setCellValue(inzerat.img);
+                row.createCell(11).setCellValue(inzerat.url);
 
                 zacateZapisu++;
             }
