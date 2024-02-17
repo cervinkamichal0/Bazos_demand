@@ -11,14 +11,14 @@ public class Inzerat {
 
     public String nadpis;
     public String popis;
-    public String cena;
+    public int cena;
     public String lokace;
     public LocalDate datumVlozeni;
     public String img;
     public String url;
     public String model;
 
-    public Inzerat(String nadpis, String popis, String cena, String lokace, LocalDate datumVlozeni, String img, String url, String model) {
+    public Inzerat(String nadpis, String popis, int cena, String lokace, LocalDate datumVlozeni, String img, String url, String model) {
         this.nadpis = nadpis;
         this.popis = popis;
         this.cena = cena;

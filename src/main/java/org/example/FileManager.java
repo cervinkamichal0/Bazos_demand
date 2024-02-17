@@ -34,6 +34,7 @@ public class FileManager {
         }
     }
     public static void saveScrape(List<Inzerat> inzeraty, String hledanyVyraz, int cenaOd, int cenaDo) {
+
         Gson gson = new Gson();
         String filePath = hledanyVyraz + " - od" + cenaOd + ", do" + cenaDo + ".json";
         try {

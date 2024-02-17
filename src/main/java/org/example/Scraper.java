@@ -20,6 +20,7 @@ import java.util.Locale;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
+import static java.lang.Integer.parseInt;
 import static java.lang.Integer.valueOf;
 
 public class Scraper {
@@ -49,8 +50,9 @@ public class Scraper {
                 System.out.println("Nepodarilo se ziskat pocet inzeratu");
             }
 
-            String nadpis, popis, cena, lokace, datumVlozeni, img, url, model;
+            String nadpis, popis, lokace, datumVlozeni, img, url, model;
             LocalDate date;
+            int cena;
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M. yyyy");
             formatter = formatter.withLocale( Locale.getDefault() );  // Locale specifies human language for translating, and cultural norms for lowercase/uppercase and abbreviations and such. Example: Locale.US or Locale.CANADA_FRENCH
             List<Inzerat> inzeratyList = new ArrayList<>();
@@ -59,7 +61,7 @@ public class Scraper {
             for(Element inzerat: inzeraty){
                 nadpis = inzerat.select(".nadpis").text();
                 popis = inzerat.select(".popis").text();
-                cena = inzerat.select(".inzeratycena").text();
+                cena = Integer.parseInt(inzerat.select(".inzeratycena").text().replaceAll(" Kč","").replaceAll(" ",""));
                 lokace = inzerat.select(".inzeratylok").text();
                 datumVlozeni = inzerat.select(".velikost10").text();
                 Matcher matcherDate = patternDate.matcher(datumVlozeni);
@@ -80,7 +82,7 @@ public class Scraper {
                 for(Element inzerat: inzeraty){
                     nadpis = inzerat.select(".nadpis").text();
                     popis = inzerat.select(".popis").text();
-                    cena = inzerat.select(".inzeratycena").text();
+                    cena = parseInt(inzerat.select(".inzeratycena").text().replaceAll(" Kč","").replaceAll(" ",""));
                     lokace = inzerat.select(".inzeratylok").text();
                     datumVlozeni = inzerat.select(".velikost10").text();
                     Matcher matcherDate = patternDate.matcher(datumVlozeni);
