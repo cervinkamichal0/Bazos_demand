@@ -68,7 +68,7 @@ public class FileManager {
             int zacateZapisu = sheet.getLastRowNum()+1;
             Row row = null;
             LocalDate dateNow = LocalDate.now();
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM yyyy");
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM. yyyy");
             for (Inzerat inzerat: inzeraty) {
                 row = sheet.createRow(zacateZapisu);
 

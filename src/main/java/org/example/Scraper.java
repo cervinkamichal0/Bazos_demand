@@ -1,16 +1,19 @@
 package org.example;
 
 import org.jetbrains.annotations.Nullable;
-import org.joda.time.LocalDate;
-import org.joda.time.format.DateTimeFormatter;
+
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.time.format.DateTimeFormatter;
+
 import java.io.IOException;
 import java.io.InputStream;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -29,7 +32,7 @@ public class Scraper {
         try{
             Document html = Jsoup.connect(scrapeUrl).get();
             Elements inzeraty=html.select(".inzeraty");
-            String regex = "\\[(\\d{1,2}\\.\\d{1,2}\\. \\d{4})\\]";
+            String regex = "\\[(\\d{1,2}\\.\\d{1,2}\\. \\d{4})]";
             Pattern patternDate = Pattern.compile(regex);
             String pocetInzeratuText = html.select(".inzeratynadpis").text();
             pocetInzeratuText = pocetInzeratuText.replaceAll("\\s","");
@@ -48,7 +51,7 @@ public class Scraper {
 
             String nadpis, popis, cena, lokace, datumVlozeni, img, url, model;
             LocalDate date;
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM yyyy");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M. yyyy");
             formatter = formatter.withLocale( Locale.getDefault() );  // Locale specifies human language for translating, and cultural norms for lowercase/uppercase and abbreviations and such. Example: Locale.US or Locale.CANADA_FRENCH
             List<Inzerat> inzeratyList = new ArrayList<>();
             Inzerat bazosInzerat;
@@ -60,6 +63,7 @@ public class Scraper {
                 lokace = inzerat.select(".inzeratylok").text();
                 datumVlozeni = inzerat.select(".velikost10").text();
                 Matcher matcherDate = patternDate.matcher(datumVlozeni);
+                matcherDate.find();
                 date =   LocalDate.parse(matcherDate.group(1), formatter);
                 img = inzerat.select(".obrazek").attr("src");
                 url = inzerat.select("a").attr("href");
@@ -80,6 +84,7 @@ public class Scraper {
                     lokace = inzerat.select(".inzeratylok").text();
                     datumVlozeni = inzerat.select(".velikost10").text();
                     Matcher matcherDate = patternDate.matcher(datumVlozeni);
+                    matcherDate.find();
                     date =   LocalDate.parse(matcherDate.group(1), formatter);
                     img = inzerat.select(".obrazek").attr("src");
                     url = inzerat.select("a").attr("href");
