@@ -39,7 +39,7 @@ public class Main {
                 String[] rozdelenyData = data.split(";");
                 List<Inzerat> stareInzeraty = FileManager.loadScrape(rozdelenyData[0], Integer.parseInt(rozdelenyData[1]), Integer.parseInt(rozdelenyData[2]));
                 List<Inzerat> noveInzeraty = Scraper.scrapeBazos(rozdelenyData[0], Integer.parseInt(rozdelenyData[1]), Integer.parseInt(rozdelenyData[2]), rozdelenyData[3]);
-               /*
+
                 if (stareInzeraty == null) {
                     for (Inzerat inzerat : noveInzeraty) {
                         DiscordBot.storeImage(inzerat, () -> {
@@ -55,7 +55,6 @@ public class Main {
                     }
                 });}
                 }
-
                 else {
                     List<Inzerat> noveStareInzeraty = new ArrayList<>();
                     for (Inzerat inzerat : noveInzeraty) {
@@ -72,7 +71,7 @@ public class Main {
                         });
                     }
                 }
-*/
+
                 List<Inzerat> prodaneInzeraty = new ArrayList<>();
 
                 if (stareInzeraty != null) {

@@ -19,7 +19,9 @@ import java.util.Scanner;
 
 public class FileManager {
     public static List<Inzerat> loadScrape(String hledanyVyraz, int cenaOd, int cenaDo) {
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter())
+                .create();
         String filePath = hledanyVyraz + " - od" + cenaOd + ", do" + cenaDo + ".json";
         try {
             File file = new File(filePath);
