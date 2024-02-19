@@ -1,6 +1,7 @@
 package org.example;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import org.apache.poi.ss.usermodel.Row;
@@ -35,7 +36,9 @@ public class FileManager {
     }
     public static void saveScrape(List<Inzerat> inzeraty, String hledanyVyraz, int cenaOd, int cenaDo) {
 
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter())
+                .create();
         String filePath = hledanyVyraz + " - od" + cenaOd + ", do" + cenaDo + ".json";
         try {
             File file = new File(filePath);
@@ -69,7 +72,7 @@ public class FileManager {
             int zacateZapisu = sheet.getLastRowNum()+1;
             Row row = null;
             LocalDate dateNow = LocalDate.now();
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM. yyyy");
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d.M. yyyy");
             for (Inzerat inzerat: inzeraty) {
                 row = sheet.createRow(zacateZapisu);
 
