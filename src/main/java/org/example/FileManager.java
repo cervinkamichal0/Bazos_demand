@@ -84,13 +84,14 @@ public class FileManager {
                 row.createCell(2).setCellValue(cenaDo);
                 row.createCell(3).setCellValue(inzerat.model);
                 row.createCell(4).setCellValue(inzerat.nadpis);
-                row.createCell(5).setCellValue(ChronoUnit.DAYS.between(inzerat.datumVlozeni, dateNow));
-                row.createCell(6).setCellValue(inzerat.datumVlozeni.format(dateTimeFormatter));
-                row.createCell(7).setCellValue(dateNow.format(dateTimeFormatter));
-                row.createCell(8).setCellValue(inzerat.lokace);
-                row.createCell(9).setCellValue(inzerat.popis);
-                row.createCell(10).setCellValue(inzerat.img);
-                row.createCell(11).setCellValue(inzerat.url);
+                row.createCell(5).setCellValue(inzerat.cena);
+                row.createCell(6).setCellValue(ChronoUnit.DAYS.between(inzerat.datumVlozeni, dateNow));
+                row.createCell(7).setCellValue(inzerat.datumVlozeni.format(dateTimeFormatter));
+                row.createCell(8).setCellValue(dateNow.format(dateTimeFormatter));
+                row.createCell(9).setCellValue(inzerat.lokace);
+                row.createCell(10).setCellValue(inzerat.popis);
+                row.createCell(11).setCellValue(inzerat.img);
+                row.createCell(12).setCellValue(inzerat.url);
 
                 zacateZapisu++;
             }
