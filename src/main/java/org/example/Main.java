@@ -70,11 +70,14 @@ public class Main {
                     }
                 }
                 //korekce data přidání pro topované inzeráty
-                for (Inzerat inzerat: noveInzeraty){
-                    if (stareInzeraty.contains(inzerat)){
-                        inzerat.datumVlozeni = stareInzeraty.get(stareInzeraty.indexOf(inzerat)).datumVlozeni;
+                if(stareInzeraty != null){
+                    for (Inzerat inzerat: noveInzeraty){
+                        if (stareInzeraty.contains(inzerat)){
+                            inzerat.datumVlozeni = stareInzeraty.get(stareInzeraty.indexOf(inzerat)).datumVlozeni;
+                        }
                     }
                 }
+
                 List<Inzerat> prodaneInzeraty = new ArrayList<>();
                 //zjistovani prodanych inzeratu
                 if (stareInzeraty != null) {
