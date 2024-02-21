@@ -7,9 +7,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static java.lang.Integer.valueOf;
-import static java.lang.System.exit;
-
 
 public class Main {
     public static void main(String[] args) {

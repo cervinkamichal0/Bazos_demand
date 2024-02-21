@@ -22,7 +22,7 @@ public class FileManager {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter())
                 .create();
-        String filePath = hledanyVyraz + " - od" + cenaOd + ", do" + cenaDo + ".json";
+        String filePath = "json\\"+hledanyVyraz + " - od" + cenaOd + ", do" + cenaDo + ".json";
         try {
             File file = new File(filePath);
             String json = new Scanner(file).useDelimiter("\\A").next();
@@ -39,7 +39,7 @@ public class FileManager {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter())
                 .create();
-        String filePath = hledanyVyraz + " - od" + cenaOd + ", do" + cenaDo + ".json";
+        String filePath = "json\\"+hledanyVyraz + " - od" + cenaOd + ", do" + cenaDo + ".json";
         try {
             File file = new File(filePath);
             file.createNewFile();
