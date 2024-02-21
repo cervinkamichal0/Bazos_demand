@@ -71,7 +71,11 @@ public class Main {
                         });
                     }
                 }
-
+                for (Inzerat inzerat: noveInzeraty){
+                    if (stareInzeraty.contains(inzerat)){
+                        inzerat.datumVlozeni = stareInzeraty.get(stareInzeraty.indexOf(inzerat)).datumVlozeni;
+                    }
+                }
                 List<Inzerat> prodaneInzeraty = new ArrayList<>();
 
                 if (stareInzeraty != null) {
