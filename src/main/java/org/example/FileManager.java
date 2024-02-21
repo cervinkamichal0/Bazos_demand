@@ -28,9 +28,7 @@ public class FileManager {
             String json = new Scanner(file).useDelimiter("\\A").next();
             Type listType = TypeToken.getParameterized(List.class, Inzerat.class).getType();
             List<Inzerat> inzeraty = gson.fromJson(json, listType);
-            for (Inzerat inzerat : inzeraty) {
-                System.out.println(inzerat.nadpis);
-            }
+            System.out.println(hledanyVyraz + " - od" + cenaOd + ", do" + cenaDo + ": "+inzeraty.size());
             return inzeraty;
         } catch (FileNotFoundException e) {
             return null;

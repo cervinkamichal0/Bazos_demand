@@ -16,17 +16,17 @@ public class Main {
         AtomicInteger completedCount = new AtomicInteger();
 
         int pocetProdeju = 0;
-        int timeOut =300000;
+        int timeOut =200000;
         if (args.length == 1) {
             try {
                 timeOut = Integer.parseInt(args[0]);
             }catch (NumberFormatException e){
-                System.out.println("Neplatny vstup. Vstup musí být číslo. (TimeOut ukončneí programu v ms). Bude použit defaultní TimeOut 300 000ms.");
+                System.out.println("Neplatny vstup. Vstup musí být číslo. (TimeOut ukončneí programu v ms). Bude použit defaultní TimeOut " + timeOut+"ms.");
             }
         }
         if (args.length != 1)
         {
-            System.out.println("Bude použit defaultní TimeOut 300 000ms pro ukončení programu. TimeOut lze nastavit pomocí prvního argumentu.");
+            System.out.println("Bude použit defaultní TimeOut "+timeOut+"ms pro ukončení programu. TimeOut lze nastavit pomocí prvního argumentu.");
         }
         try {
 
@@ -40,6 +40,7 @@ public class Main {
                 List<Inzerat> stareInzeraty = FileManager.loadScrape(rozdelenyData[0], Integer.parseInt(rozdelenyData[1]), Integer.parseInt(rozdelenyData[2]));
                 List<Inzerat> noveInzeraty = Scraper.scrapeBazos(rozdelenyData[0], Integer.parseInt(rozdelenyData[1]), Integer.parseInt(rozdelenyData[2]), rozdelenyData[3]);
 
+                //uploadovani fotek inzeratu na discord
                 if (stareInzeraty == null) {
                     for (Inzerat inzerat : noveInzeraty) {
                         DiscordBot.storeImage(inzerat, () -> {
@@ -71,13 +72,14 @@ public class Main {
                         });
                     }
                 }
+                //korekce data přidání pro topované inzeráty
                 for (Inzerat inzerat: noveInzeraty){
                     if (stareInzeraty.contains(inzerat)){
                         inzerat.datumVlozeni = stareInzeraty.get(stareInzeraty.indexOf(inzerat)).datumVlozeni;
                     }
                 }
                 List<Inzerat> prodaneInzeraty = new ArrayList<>();
-
+                //zjistovani prodanych inzeratu
                 if (stareInzeraty != null) {
                     for (Inzerat inzerat : stareInzeraty) {
                         if (!noveInzeraty.contains(inzerat)) {
