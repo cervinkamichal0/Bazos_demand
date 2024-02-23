@@ -17,13 +17,27 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
 import static java.lang.Thread.currentThread;
 import static java.lang.Thread.sleep;
 
 public class DiscordBot {
-    private static final JDA bot = JDABuilder.createDefault("MTIwNTUwMjgyMTYzODg3MzE0OA.Gp6oUs.UelgnS7klD31eaQNSz086ZcbK166ojgt23Y0hc").setActivity(Activity.customStatus("Scraping Bazos 😎")).build();
+
+    private static final String discordBotToken;
+
+    static {
+        try {
+            discordBotToken = Files.readString(Path.of("DiscordBotToken.txt"));
+        } catch (IOException e) {
+            System.out.println("Vložte token do souboru 'DiscordBotToken.txt'");
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static final JDA bot = JDABuilder.createDefault(discordBotToken).setActivity(Activity.customStatus("Scraping Bazos 😎")).build();
 
     private static void sendImage(FileUpload img, String inzeratURL ,ImageCallback callback) {
         try {

@@ -98,7 +98,13 @@ public class FileManager {
                 workbook.write(writeFile);
                 writeFile.close();
             } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
+                try{
+                    System.out.println("Nepodarilo se uložit do souboru prodeje.xlsx, za 5 sekund to zkusím znovu");
+                    Thread.sleep(5000);
+                    saveSells(inzeraty,hledanyVyraz,cenaOd,cenaDo);
+                }catch (InterruptedException ex){
+                    throw new RuntimeException(ex);
+                }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
