@@ -56,5 +56,10 @@
             <artifactId>fastexcel</artifactId>
             <version>0.15.3</version>
         </dependency>
+        <dependency>
+            <groupId>com.clarifai</groupId>
+            <artifactId>clarifai-grpc</artifactId>
+            <version>10.1.6</version>
+        </dependency>
     </dependencies>
 </project>
