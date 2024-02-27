@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
     public static void main(String[] args) {
-       /* AtomicInteger completedCount = new AtomicInteger();
+        AtomicInteger completedCount = new AtomicInteger();
 
         int pocetProdeju = 0;
         int timeOut =200000;
@@ -108,7 +108,5 @@ public class Main {
         }
         System.exit(0);
 
-        */
-        ImageRecognition.recognizeImage("obrazk");
     }
 }

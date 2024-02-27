@@ -74,6 +74,9 @@ public class FileManager {
             LocalDate dateNow = LocalDate.now();
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d.M. yyyy");
             for (Inzerat inzerat: inzeraty) {
+                //TODO filtr
+
+
                 row = sheet.createRow(zacateZapisu);
 
 
@@ -90,7 +93,9 @@ public class FileManager {
                 row.createCell(10).setCellValue(inzerat.popis);
                 row.createCell(11).setCellValue(inzerat.img);
                 row.createCell(12).setCellValue(inzerat.url);
-
+                if (!ImageRecognition.isCar(inzerat.img)) {
+                    row.createCell(13).setCellValue("ne");
+                }
                 zacateZapisu++;
             }
             try {

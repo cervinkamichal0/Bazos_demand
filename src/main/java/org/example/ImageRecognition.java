@@ -20,13 +20,13 @@ public class ImageRecognition {
     static final String APP_ID = "spin";
     // Change these to make your own predictions
     static final String WORKFLOW_ID = "image_recognition";
-    static final String IMAGE_URL = "https://samples.clarifai.com/metro-north.jpg";
+
 
     ///////////////////////////////////////////////////////////////////////////////////
     // YOU DO NOT NEED TO CHANGE ANYTHING BELOW THIS LINE TO RUN THIS EXAMPLE
     ///////////////////////////////////////////////////////////////////////////////////
 
-    public static void recognizeImage(String imageURL) {
+    public static boolean isCar(String imageURL) {
 
         V2Grpc.V2BlockingStub stub = V2Grpc.newBlockingStub(ClarifaiChannel.INSTANCE.getGrpcChannel())
                 .withCallCredentials(new ClarifaiCallCredentials(PAT));
@@ -38,7 +38,7 @@ public class ImageRecognition {
                         .addInputs(
                                 Input.newBuilder().setData(
                                         Data.newBuilder().setImage(
-                                                Image.newBuilder().setUrl("https://www.bazos.cz/img/1t/298/181880298.jpg?t=1708965312")
+                                                Image.newBuilder().setUrl(imageURL)
                                         )
                                 )
                         )
@@ -46,7 +46,8 @@ public class ImageRecognition {
         );
 
         if (postWorkflowResultsResponse.getStatus().getCode() != StatusCode.SUCCESS) {
-            throw new RuntimeException("Post workflow results failed, status: " + postWorkflowResultsResponse.getStatus());
+
+            return true;
         }
 
         // We'll get one WorkflowResult for each input we used above. Because of one input, we have here
@@ -57,13 +58,17 @@ public class ImageRecognition {
         for (Output output: results.getOutputsList()) {
             Model model = output.getModel();
 
-            System.out.println("Predicted concepts for the model `" + model.getId() + "`:");
-            for (Concept concept: output.getData().getConceptsList()) {
-                System.out.printf("\t%s %.2f%n", concept.getName(), concept.getValue());
+           String firsConceptName = output.getData().getConceptsList().get(0).getName();
+
+
+            if (!firsConceptName.equals("car") && !firsConceptName.equals("vehicle")){
+                System.out.println("Filtr: " + firsConceptName);
+                return false;
             }
 
-        }
 
+        }
+        return true;
     }
 
 }
