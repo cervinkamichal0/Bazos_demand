@@ -1,5 +1,4 @@
 package org.example;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -107,6 +106,5 @@ public class Main {
             throw new RuntimeException(e);
         }
         System.exit(0);
-
     }
 }

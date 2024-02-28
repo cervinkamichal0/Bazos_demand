@@ -93,6 +93,7 @@ public class FileManager {
                 row.createCell(10).setCellValue(inzerat.popis);
                 row.createCell(11).setCellValue(inzerat.img);
                 row.createCell(12).setCellValue(inzerat.url);
+                Thread.sleep(2000);
                 if (!ImageRecognition.isCar(inzerat.img)) {
                     row.createCell(13).setCellValue("ne");
                 }
@@ -112,6 +113,8 @@ public class FileManager {
                 }
             }
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
         try {

@@ -56,7 +56,6 @@ public class ImageRecognition {
 
         // Each model we have in the workflow will produce one output.
         for (Output output: results.getOutputsList()) {
-            Model model = output.getModel();
 
            String firsConceptName = output.getData().getConceptsList().get(0).getName();
 
@@ -65,8 +64,6 @@ public class ImageRecognition {
                 System.out.println("Filtr: " + firsConceptName);
                 return false;
             }
-
-
         }
         return true;
     }
