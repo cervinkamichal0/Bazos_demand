@@ -67,5 +67,5 @@ public class ImageRecognition {
         }
         return true;
     }
-
+    //TODO 💀💀💀💀💀💀💀
 }
